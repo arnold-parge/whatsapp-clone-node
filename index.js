@@ -30,6 +30,10 @@ io.on('connection', (socket) => {
     });
 });
 
-http.listen(3000, () => {
-    console.log('Server started at PORT: 3000');
+var port = process.env.PORT || 3000
+
+console.log('PORT IS: ', port);
+
+http.listen(port, () => {
+    console.log('Server started at PORT: ', port);
 });
