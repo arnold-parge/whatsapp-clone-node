@@ -2,6 +2,10 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
+app.get('/', (req, res) => {
+    res.send('Welcome to the node server of whatsapp clone!');
+});
+
 io.on('connection', (socket) => {
 
     var authList = [];
