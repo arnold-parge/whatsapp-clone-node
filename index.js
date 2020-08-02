@@ -30,6 +30,6 @@ io.on('connection', (socket) => {
     });
 });
 
-http.listen($PORT, () => {
+http.listen(3000, () => {
     console.log('Server started at PORT: 3000');
 });
