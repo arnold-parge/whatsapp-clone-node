@@ -2,18 +2,18 @@ const app = require('express')();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-app.get('/', (req, res) => {
+app.get('/', function (req, res) {
     res.send('Welcome to the node server of whatsapp clone!');
 });
 
-io.on('connection', (socket) => {
+io.on('connection', function (socket) {
 
     var authList = [];
 
     console.log('a user is connected: ', socket.id);
     // socket.handshake.headers maybe token after headers
 
-    socket.on('client-auth', (data) => {
+    socket.on('client-auth', function (data) {
         /**
          * data will contain sid - session id.
          * send a request to django to check if the user with this session id is logged in
@@ -21,12 +21,8 @@ io.on('connection', (socket) => {
          */
     });
 
-    socket.on('message-from-server', (data) => {
-        console.log('data.token: ', data.token);
-        socket.emit('message-to-client', {
-            ...data,
-            extra: 'things..'
-        });
+    socket.on('send-message', function (data) {
+        socket.emit('get-message', data);
     });
 });
 
@@ -34,6 +30,6 @@ var port = process.env.PORT || 3000
 
 console.log('PORT IS: ', port);
 
-http.listen(port, () => {
+http.listen(port, function () {
     console.log('Server started at PORT: ', port);
 });
